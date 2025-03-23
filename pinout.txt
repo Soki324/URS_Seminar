@@ -1,0 +1,25 @@
+SPG40 intake:
+    PB7 -> SDA
+    PB6 -> SCL
+
+SPG40 exaust:
+    PC12 -> SDA
+    PB10 -> SCL
+
+AHT10:
+    PC9 -> SDA
+    PA8 -> SCL
+
+Screen:
+    PB7 -> SDA
+    PB6 -> SCL
+
+Fan:
+    PC7 -> Tach
+    PB15 -> PWM control
+
+Button:
+    Input -> PC6
+
+Speaker:
+    Output -> PB14

@@ -1,0 +1,6 @@
+E:/Programiranje/URS_Seminar/CMakeFiles/URS_Seminar.dir
+E:/Programiranje/URS_Seminar/CMakeFiles/edit_cache.dir
+E:/Programiranje/URS_Seminar/CMakeFiles/rebuild_cache.dir
+E:/Programiranje/URS_Seminar/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
+E:/Programiranje/URS_Seminar/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+E:/Programiranje/URS_Seminar/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir
