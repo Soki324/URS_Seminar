@@ -32,6 +32,7 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_i2c_hal.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_i2c.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sgp40_i2c.c
+    ${CMAKE_SOURCE_DIR}/Core/Src/aht10.c
 )
 
 # STM32 HAL/LL Drivers

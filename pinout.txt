@@ -1,18 +1,22 @@
 SPG40 intake:
     PB7 -> SDA
     PB6 -> SCL
+    BUS: I2C1
 
 SPG40 exaust:
     PC12 -> SDA
     PB10 -> SCL
+    BUS: I2C2
 
 AHT10:
     PC9 -> SDA
     PA8 -> SCL
+    BUS: I2C3
 
 Screen:
     PB7 -> SDA
     PB6 -> SCL
+    BUS: I2C1
 
 Fan:
     PC7 -> Tach

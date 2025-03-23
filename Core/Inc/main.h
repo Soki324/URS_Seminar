@@ -65,6 +65,8 @@ void Error_Handler(void);
 #define USART_RX_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define Speaker_Pin GPIO_PIN_14
+#define Speaker_GPIO_Port GPIOB
 #define Fan_PWM_Pin GPIO_PIN_15
 #define Fan_PWM_GPIO_Port GPIOB
 #define Display_button_Pin GPIO_PIN_6

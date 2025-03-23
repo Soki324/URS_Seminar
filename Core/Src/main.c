@@ -21,6 +21,11 @@
 #include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
+#include "aht10.h"
+#include "sensirion_common.h"
+#include "sgp40_i2c.h"
+
+//TODO: need to take a look at sensirion VOC index algorithm: https://github.com/Sensirion/embedded-sgp/tree/master/sgp40_voc_index
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -129,7 +134,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
     for (int i = 0; i < 60; i++) {
       uint16_t sraw_voc;
 
@@ -145,6 +149,8 @@ int main(void)
       }
     }
     HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
