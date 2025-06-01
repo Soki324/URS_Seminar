@@ -6,7 +6,16 @@
 #include <stdint.h>
 #include "i2c.h"
 
+/*
+* Datasheet for this IC is afwul, I pulled some information from different sources
+* and made some assumptions, so please use this code at your own risk.
+* Init sequece is not well documented, so I had to use examples from other projects.
+* I've used this example as a reference: https://github.com/W-Linus/AHT10_STM32_HAL/blob/master/Drivers/AHT10/Inc/AHT10.h
+*/
 
+/* AHT10 I2C address and commands
+* I've found these somewhere on the internet, but I can't find the source anymore
+*/
 #define AHT10_ADDRESS              0x38<<1  //chip I2C address no.1 for AHT10/AHT15/AHT20, address pin connected to GND
 
 #define AHT10_INIT_CMD             0xE1     //initialization command for AHT10/AHT15
@@ -33,9 +42,33 @@
 #define AHT10_USE_READ_DATA        false    //force to use data from previous read
 #define AHT10_ERROR                0xFF     //returns 255, if communication error is occurred
 
+/**
+* AHT10 Initialization Function
+* @param None
+* @return bool - true if initialization is successful, false otherwise
+*/
 bool aht10_Init(void);
-bool aht10_ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity, bool forceRead);
 
+/**
+ * AHT10 Read Temperature and Humidity Function
+ * @param temperature Pointer to store the temperature value
+ * @param humidity Pointer to store the humidity value
+ * @return bool - true if reading is successful, false otherwise
+ */
+bool aht10_ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity);
 
+/**
+* AHT10 Soft Reset Function
+* @param None
+* @return bool - true if soft reset is successful, false otherwise
+*/
+bool aht10_SoftReset(void);
+
+/**
+* AHT10 Start Measurement Function
+* @param None
+* @return bool - true if measurement start is successful, false otherwise
+*/
+bool aht10_StartMeasurement(void);
 
 #endif /* __AHT10_H__ */

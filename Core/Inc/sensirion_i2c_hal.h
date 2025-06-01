@@ -50,7 +50,7 @@ extern "C" {
  * @param bus_idx   Bus index to select
  * @returns         0 on success, an error code otherwise
  */
-int16_t sensirion_i2c_hal_select_bus(uint8_t bus_idx);
+int16_t sensirion_i2c_hal_select_bus(I2C_TypeDef* bus_idx);
 
 /**
  * Initialize all hard- and software components that are needed for the I2C

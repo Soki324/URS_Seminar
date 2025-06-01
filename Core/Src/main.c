@@ -24,8 +24,7 @@
 #include "aht10.h"
 #include "sensirion_common.h"
 #include "sgp40_i2c.h"
-
-//TODO: need to take a look at sensirion VOC index algorithm: https://github.com/Sensirion/embedded-sgp/tree/master/sgp40_voc_index
+#include "sensirion_gas_index_algorithm.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -68,7 +67,8 @@ return ch;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+I2C_TypeDef* SPG40Intake = I2C1;
+I2C_TypeDef* SPG40Exaust = I2C2;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -120,13 +120,27 @@ int main(void)
   MX_I2C3_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  bool hardware_initialized = true;
+  printf("Starting AHT10 sensor...\n\n");
+  if (!aht10_Init()) {
+    printf("AHT10 initialization failed.\n");
+    hardware_initialized = false;
+  } else {
+    printf("AHT10 initialized successfully.\n\n");
+  }
+  printf("Starting SGP40 sensor...\n\n");
   error = sgp40_get_serial_number(serial_number, serial_number_size);
   if (error) {
     printf("Error executing sgp40_get_serial_number(): %i\n", error);
+    hardware_initialized = false;
   } else {
     printf("serial: 0x%04x%04x%04x\n", serial_number[0], serial_number[1],
            serial_number[2]);
     printf("\n");
+  }
+  //Signal that hardware failed to initialize
+  if(!hardware_initialized) {
+    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
   }
   /* USER CODE END 2 */
 
@@ -148,7 +162,7 @@ int main(void)
           printf("SRAW VOC: %u\n", sraw_voc);
       }
     }
-    HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
+    //HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

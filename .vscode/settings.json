@@ -1,0 +1,5 @@
+{
+    "files.associations": {
+        "sensirion_gas_index_algorithm.h": "c"
+    }
+}
