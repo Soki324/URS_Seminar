@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "sensirion_gas_index_algorithm.h": "c"
+        "sensirion_gas_index_algorithm.h": "c",
+        "sgp40_i2c.h": "c"
     }
 }

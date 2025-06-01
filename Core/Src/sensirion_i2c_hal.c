@@ -33,6 +33,8 @@
 #include "sensirion_common.h"
 #include "sensirion_config.h"
 
+I2C_TypeDef* current_i2c_bus = I2C1; // Default bus, can be changed with sensirion_i2c_hal_select_bus
+
 /*
  * INSTRUCTIONS
  * ============
@@ -52,9 +54,10 @@
  * @returns         0 on success, an error code otherwise
  */
 int16_t sensirion_i2c_hal_select_bus(I2C_TypeDef* bus_idx) {
-    /* TODO:IMPLEMENT or leave empty if all sensors are located on one single
-     * bus
-     */
+    if (bus_idx == I2C1 || bus_idx == I2C2) {
+        current_i2c_bus = bus_idx;
+        return NO_ERROR;
+    }
     return NOT_IMPLEMENTED_ERROR;
 }
 
@@ -84,7 +87,7 @@ void sensirion_i2c_hal_free(void) {
  * @returns 0 on success, error code otherwise
  */
 int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
-    if(HAL_OK == HAL_I2C_Master_Receive(&hi2c1,address,data,count,HAL_MAX_DELAY)){
+    if(HAL_OK == HAL_I2C_Master_Receive(&current_i2c_bus,address,data,count,HAL_MAX_DELAY)){
         return NO_ERROR;
     } else {
         return ERROR;
@@ -103,7 +106,7 @@ int8_t sensirion_i2c_hal_read(uint8_t address, uint8_t* data, uint16_t count) {
  * @returns 0 on success, error code otherwise
  */
 int8_t sensirion_i2c_hal_write(uint8_t address, const uint8_t* data, uint16_t count) {
-    if(HAL_OK == HAL_I2C_Master_Transmit(&hi2c1,address,data,count,HAL_MAX_DELAY)){
+    if(HAL_OK == HAL_I2C_Master_Transmit(&current_i2c_bus,address,data,count,HAL_MAX_DELAY)){
         return NO_ERROR;
     } else {
         return ERROR;

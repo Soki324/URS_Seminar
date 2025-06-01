@@ -24,6 +24,7 @@
 #include "aht10.h"
 #include "sensirion_common.h"
 #include "sgp40_i2c.h"
+#include "sensirion_i2c_hal.h"
 #include "sensirion_gas_index_algorithm.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -128,7 +129,15 @@ int main(void)
   } else {
     printf("AHT10 initialized successfully.\n\n");
   }
-  printf("Starting SGP40 sensor...\n\n");
+
+  printf("Starting SGP40 Intake sensor...\n\n");
+  error = sensirion_i2c_hal_select_bus(SPG40Intake);
+  if (error) {
+    printf("Error executing sgp40_select_bus(): %i\n", error);
+    hardware_initialized = false;
+  } else {
+    printf("SGP40 Intake bus selected successfully.\n\n");
+  }
   error = sgp40_get_serial_number(serial_number, serial_number_size);
   if (error) {
     printf("Error executing sgp40_get_serial_number(): %i\n", error);
@@ -138,10 +147,34 @@ int main(void)
            serial_number[2]);
     printf("\n");
   }
+
+  printf("Starting SGP40 Exaust sensor...\n\n");
+  error = sensirion_i2c_hal_select_bus(SPG40Exaust);
+  if (error) {
+    printf("Error executing sgp40_select_bus(): %i\n", error);
+    hardware_initialized = false;
+  } else {
+    printf("SGP40 Exaust bus selected successfully.\n\n");
+  }
+  error = sgp40_get_serial_number(serial_number, serial_number_size);
+  if (error) {
+    printf("Error executing sgp40_get_serial_number(): %i\n", error);
+    hardware_initialized = false;
+  } else {
+    printf("serial: 0x%04x%04x%04x\n", serial_number[0], serial_number[1],
+           serial_number[2]);
+    printf("\n");
+  }
+
   //Signal that hardware failed to initialize
   if(!hardware_initialized) {
-    HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+    while (1) {
+      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+      HAL_Delay(250);
+    }
   }
+  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+  printf("Hardware initialized successfully.\n\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -162,7 +195,6 @@ int main(void)
           printf("SRAW VOC: %u\n", sraw_voc);
       }
     }
-    //HAL_GPIO_TogglePin(LD2_GPIO_Port,LD2_Pin);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
