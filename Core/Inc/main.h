@@ -71,8 +71,9 @@ void Error_Handler(void);
 #define Fan_PWM_GPIO_Port GPIOB
 #define Display_button_Pin GPIO_PIN_6
 #define Display_button_GPIO_Port GPIOC
-#define Fan_tach_Pin GPIO_PIN_7
-#define Fan_tach_GPIO_Port GPIOC
+#define FanTach_Pin GPIO_PIN_7
+#define FanTach_GPIO_Port GPIOC
+#define FanTach_EXTI_IRQn EXTI9_5_IRQn
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14

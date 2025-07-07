@@ -21,11 +21,6 @@
 #include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
-#include "aht10.h"
-#include "sensirion_common.h"
-#include "sgp40_i2c.h"
-#include "sensirion_i2c_hal.h"
-#include "sensirion_gas_index_algorithm.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -96,6 +91,7 @@ int main(void)
   uint8_t serial_number_size = 3;
   uint16_t default_rh = 0x8000;
   uint16_t default_t = 0x6666;
+  GasIndexAlgorithmParams gas_index_algorithm_params;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -128,6 +124,12 @@ int main(void)
     hardware_initialized = false;
   } else {
     printf("AHT10 initialized successfully.\n\n");
+    if(!aht10_StartMeasurement()) {
+      printf("AHT10 measurement start failed.\n");
+      hardware_initialized = false;
+    } else {
+      printf("AHT10 measurement started successfully.\n\n");
+    }
   }
 
   printf("Starting SGP40 Intake sensor...\n\n");
@@ -175,6 +177,10 @@ int main(void)
   }
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
   printf("Hardware initialized successfully.\n\n");
+
+  printf("Starting Sensirion Gas index algorithm\n\n");
+  GasIndexAlgorithm_init(&gas_index_algorithm_params, 0); // 0 for VOC, 1 for NOx
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -183,16 +189,26 @@ int main(void)
   {
     for (int i = 0; i < 60; i++) {
       uint16_t sraw_voc;
+      int32_t calculated_voc;
 
       sensirion_i2c_hal_sleep_usec(1000000);
 
-      error = sgp40_measure_raw_signal(default_rh, default_t, &sraw_voc);
+      
+      uint32_t rh;
+      int32_t t;
+
+      aht10_ReadTemperatureAndHumidity(&t, &rh);
+
+      error = sgp40_measure_raw_signal(t, rh, &sraw_voc);
       if (error) {
           printf("Error executing sgp40_measure_raw_signal(): "
                  "%i\n",
                  error);
       } else {
-          printf("SRAW VOC: %u\n", sraw_voc);
+          printf("SRAW VOC: %d\n", sraw_voc);
+          // Calculate gas index using the Gas Index Algorithm
+          GasIndexAlgorithm_process(&gas_index_algorithm_params, &sraw_voc, &calculated_voc);
+          printf("Calculated VOC: %d\n\n", calculated_voc);
       }
     }
     /* USER CODE END WHILE */
@@ -267,8 +283,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
