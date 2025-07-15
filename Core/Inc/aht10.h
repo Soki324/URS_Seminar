@@ -1,4 +1,3 @@
-
 #ifndef __AHT10_H__
 #define __AHT10_H__
 

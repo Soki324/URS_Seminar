@@ -25,24 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-#ifdef __GNUC__
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#define GETCHAR_PROTOTYPE int __io_getchar(void)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#define GETCHAR_PROTOTYPE int fgetc(FILE *f)
-#endif
-PUTCHAR_PROTOTYPE {
-HAL_UART_Transmit(&huart2, (uint8_t*) &ch, 1, HAL_MAX_DELAY);
-return ch;
-}
-GETCHAR_PROTOTYPE {
-uint8_t ch = 0;
-__HAL_UART_CLEAR_OREFLAG(&huart2);
-HAL_UART_Receive(&huart2, (uint8_t*) &ch, 1, HAL_MAX_DELAY);
-HAL_UART_Transmit(&huart2, (uint8_t*) &ch, 1, HAL_MAX_DELAY);
-return ch;
-}
+#include "voc_handler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,8 +46,7 @@ return ch;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-I2C_TypeDef* SPG40Intake = I2C1;
-I2C_TypeDef* SPG40Exaust = I2C2;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -86,12 +68,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  int16_t error = 0;
-  uint16_t serial_number[3];
-  uint8_t serial_number_size = 3;
-  uint16_t default_rh = 0x8000;
-  uint16_t default_t = 0x6666;
-  GasIndexAlgorithmParams gas_index_algorithm_params;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -117,70 +94,18 @@ int main(void)
   MX_I2C3_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  bool hardware_initialized = true;
-  printf("Starting AHT10 sensor...\n\n");
-  if (!aht10_Init()) {
-    printf("AHT10 initialization failed.\n");
-    hardware_initialized = false;
-  } else {
-    printf("AHT10 initialized successfully.\n\n");
-    if(!aht10_StartMeasurement()) {
-      printf("AHT10 measurement start failed.\n");
-      hardware_initialized = false;
-    } else {
-      printf("AHT10 measurement started successfully.\n\n");
-    }
-  }
 
-  printf("Starting SGP40 Intake sensor...\n\n");
-  error = sensirion_i2c_hal_select_bus(SPG40Intake);
-  if (error) {
-    printf("Error executing sgp40_select_bus(): %i\n", error);
-    hardware_initialized = false;
-  } else {
-    printf("SGP40 Intake bus selected successfully.\n\n");
-  }
-  error = sgp40_get_serial_number(serial_number, serial_number_size);
-  if (error) {
-    printf("Error executing sgp40_get_serial_number(): %i\n", error);
-    hardware_initialized = false;
-  } else {
-    printf("serial: 0x%04x%04x%04x\n", serial_number[0], serial_number[1],
-           serial_number[2]);
-    printf("\n");
-  }
-
-  printf("Starting SGP40 Exaust sensor...\n\n");
-  error = sensirion_i2c_hal_select_bus(SPG40Exaust);
-  if (error) {
-    printf("Error executing sgp40_select_bus(): %i\n", error);
-    hardware_initialized = false;
-  } else {
-    printf("SGP40 Exaust bus selected successfully.\n\n");
-  }
-  error = sgp40_get_serial_number(serial_number, serial_number_size);
-  if (error) {
-    printf("Error executing sgp40_get_serial_number(): %i\n", error);
-    hardware_initialized = false;
-  } else {
-    printf("serial: 0x%04x%04x%04x\n", serial_number[0], serial_number[1],
-           serial_number[2]);
-    printf("\n");
-  }
 
   //Signal that hardware failed to initialize
-  if(!hardware_initialized) {
+  if(!init_voc_system()) {
     while (1) {
       HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
       HAL_Delay(250);
     }
-  }
+  } else {
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
   printf("Hardware initialized successfully.\n\n");
-
-  printf("Starting Sensirion Gas index algorithm\n\n");
-  GasIndexAlgorithm_init(&gas_index_algorithm_params, 0); // 0 for VOC, 1 for NOx
-
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -190,10 +115,7 @@ int main(void)
     for (int i = 0; i < 60; i++) {
       uint16_t sraw_voc;
       int32_t calculated_voc;
-
       sensirion_i2c_hal_sleep_usec(1000000);
-
-      
       uint32_t rh;
       int32_t t;
 

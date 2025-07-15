@@ -21,7 +21,24 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-
+#ifdef __GNUC__
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#define GETCHAR_PROTOTYPE int __io_getchar(void)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#define GETCHAR_PROTOTYPE int fgetc(FILE *f)
+#endif
+PUTCHAR_PROTOTYPE {
+HAL_UART_Transmit(&huart2, (uint8_t*) &ch, 1, HAL_MAX_DELAY);
+return ch;
+}
+GETCHAR_PROTOTYPE {
+uint8_t ch = 0;
+__HAL_UART_CLEAR_OREFLAG(&huart2);
+HAL_UART_Receive(&huart2, (uint8_t*) &ch, 1, HAL_MAX_DELAY);
+HAL_UART_Transmit(&huart2, (uint8_t*) &ch, 1, HAL_MAX_DELAY);
+return ch;
+}
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart2;

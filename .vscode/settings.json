@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "sensirion_gas_index_algorithm.h": "c",
-        "sgp40_i2c.h": "c"
+        "sgp40_i2c.h": "c",
+        "usart.h": "c",
+        "aht10.h": "c",
+        "i2c.h": "c",
+        "main.h": "c"
     }
 }
