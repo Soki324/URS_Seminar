@@ -95,44 +95,12 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-
-  //Signal that hardware failed to initialize
-  if(!init_voc_system()) {
-    while (1) {
-      HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-      HAL_Delay(250);
-    }
-  } else {
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-  printf("Hardware initialized successfully.\n\n");
-  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    for (int i = 0; i < 60; i++) {
-      uint16_t sraw_voc;
-      int32_t calculated_voc;
-      sensirion_i2c_hal_sleep_usec(1000000);
-      uint32_t rh;
-      int32_t t;
-
-      aht10_ReadTemperatureAndHumidity(&t, &rh);
-
-      error = sgp40_measure_raw_signal(t, rh, &sraw_voc);
-      if (error) {
-          printf("Error executing sgp40_measure_raw_signal(): "
-                 "%i\n",
-                 error);
-      } else {
-          printf("SRAW VOC: %d\n", sraw_voc);
-          // Calculate gas index using the Gas Index Algorithm
-          GasIndexAlgorithm_process(&gas_index_algorithm_params, &sraw_voc, &calculated_voc);
-          printf("Calculated VOC: %d\n\n", calculated_voc);
-      }
-    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

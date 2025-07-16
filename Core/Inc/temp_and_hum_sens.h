@@ -4,14 +4,23 @@
 #include "aht10.h"
 #include "usart.h"
 
+int32_t sensor_temperature;
+uint32_t sensor_humidity;
+
 /**
  * Handler level initialization function for AHT10 sensor.
  * This function initializes the AHT10 sensor and starts measurement if successful.
  * @param None
  * @return bool - true if reading is successful, false otherwise
  */
-bool init_aht10_sensor(void);
+bool init_temp_and_hum_sensor(void);
 
+/**
+ * Gets the temperature and humidity readings from the sensor.
+ * @param None
+ * @return None
+ */
+void run_temp_and_hum_sensor_measurement(void);
 
 
 #endif /* AHT10_HANDLER_H */

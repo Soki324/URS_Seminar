@@ -6,13 +6,26 @@
 #include "sgp40_i2c.h"
 #include "sensirion_i2c_hal.h"
 #include "sensirion_gas_index_algorithm.h"
-#include "aht10_handler.h"
+#include "temp_and_hum_sens.h"
 
-    uint16_t sraw_voc;
-    int32_t calculated_voc;
-    sensirion_i2c_hal_sleep_usec(1000000);
-    uint32_t rh;
-    int32_t t;
+#define SPG40_SLEEP_TIME_US 1000000
+#define SPG40_DEFAULT_RH 0x8000
+#define SPG40_DEFAULT_T 0x6666
+
+uint16_t sraw_voc_intake;
+uint16_t sraw_voc_exaust;
+int32_t calculated_voc_intake;
+int32_t calculated_voc_exaust;
+uint32_t rh;
+int32_t t;
+
+bool temp_and_hum_sensor_initialized ;
+bool sgp40_intake_initialized;
+bool sgp40_exaust_initialized;
+bool hardware_initialized;
+
+GasIndexAlgorithmParams gas_index_algorithm_intake_params;
+GasIndexAlgorithmParams gas_index_algorithm_exaust_params;
 
 /**
  * Handler level initialization function for VOC sensor.
@@ -22,22 +35,28 @@
  */
 bool init_voc_system(void);
 
-
-void run_voc_measurement(void) {
-    for (int i = 0; i < 60; i++) {
-        sensirion_i2c_hal_sleep_usec(1000000);
-        aht10_ReadTemperatureAndHumidity(&t, &rh);
-
-        error = sgp40_measure_raw_signal(t, rh, &sraw_voc);
-        if (error) {
-            printf("Error executing sgp40_measure_raw_signal(): %i\n", error);
-        } else {
-            printf("SRAW VOC: %d\n", sraw_voc);
-            // Calculate gas index using the Gas Index Algorithm
-            GasIndexAlgorithm_process(&gas_index_algorithm_params, &sraw_voc, &calculated_voc);
-            printf("Calculated VOC: %d\n\n", calculated_voc);
-        }
-    }
-}
+/**
+ * Handler level initialization function for VOC sensor.
+ * This function initializes the SGP40 sensor and starts measurement if successful.
+ * @param None
+ * @note return values are:
+ *  0 byte -> temperature and humidity sensor status:
+ *      0 - success, used measured temperature and humidity, 1 - fail, used default temperature and humidity
+ *  1 byte -> intake sensor status:
+ *      0 - success, 1 - fail
+ *  2 byte -> exaust sensor status:
+ *     0 - success, 1 - fail
+ * 
+ *  0 - success, used measured temperature and humidity, both voc sensors values read
+ *  1 - success, used default temperature and humidity (temperature and humidity sensor not working), both voc sensors values read
+ *  2 - success, used measured temperature and humidity, intake not working, only exaust voc sensor value read
+ *  3 - success, used default temperature and humidity (temperature and humidity sensor not working), only intake voc sensor value read, exaust sensor not working
+ *  4 - success, used measured temperature and humidity, only intake voc sensor value read, exaust not working
+ *  5 - success, used default temperature and humidity (temperature and humidity sensor not working), intake voc sensor not working, only exaust voc sensor value read
+ *  6 - fail, used measured temperature and humidity, no voc sensor values read
+ *  7 - fail, used default temperature and humidity (temperature and humidity sensor not working), no voc sensor values read
+ * @return Returns 0 on success, 1 - 5 on partial success, 6 - 7 on failure
+ */
+uint8_t run_voc_measurement(void);
 
 #endif /* __VOC_HANDLER_H__ */

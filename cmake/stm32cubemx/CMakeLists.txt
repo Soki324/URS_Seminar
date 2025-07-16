@@ -33,7 +33,7 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_i2c.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sgp40_i2c.c
     ${CMAKE_SOURCE_DIR}/Core/Src/aht10.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/aht10_handler.c
+    ${CMAKE_SOURCE_DIR}/Core/Src/temp_and_hum_sens.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_gas_index_algorithm.c
     ${CMAKE_SOURCE_DIR}/Core/Src/voc_handler.c
 )
