@@ -36,6 +36,7 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/temp_and_hum_sens.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_gas_index_algorithm.c
     ${CMAKE_SOURCE_DIR}/Core/Src/voc_handler.c
+    ${CMAKE_SOURCE_DIR}/Core/Src/display_handler.c
 )
 
 # STM32 HAL/LL Drivers

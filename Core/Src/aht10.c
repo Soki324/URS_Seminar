@@ -69,14 +69,14 @@ bool aht10_ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity) 
     rawHumidity |= data[2];
     rawHumidity <<= 4;
     rawHumidity |= data[3] >> 4;
-    humidity = (rawHumidity * 100) / 1048576; // Convert raw humidity to percentage
+    *humidity = (rawHumidity * 100) / 1048576; // Convert raw humidity to percentage
 
     uint32_t rawTemperature = data[3] & 0x0F;
     rawTemperature <<= 8;
     rawTemperature |= data[4];
     rawTemperature <<= 8;
     rawTemperature |= data[5];
-    temperature = (rawTemperature * 200) / 1048576 - 50; // Convert raw temperature to degrees Celsius
+    *temperature = (rawTemperature * 200) / 1048576 - 50; // Convert raw temperature to degrees Celsius
     
     // Convert raw values to actual temperature and humidity
     *humidity = (rawHumidity * 100) / 1048576; // Humidity in percentage

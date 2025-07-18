@@ -4,8 +4,8 @@
 #include "aht10.h"
 #include "usart.h"
 
-int32_t sensor_temperature;
-uint32_t sensor_humidity;
+extern int32_t sensor_temperature;
+extern uint32_t sensor_humidity;
 
 /**
  * Handler level initialization function for AHT10 sensor.

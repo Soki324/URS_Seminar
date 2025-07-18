@@ -12,20 +12,20 @@
 #define SPG40_DEFAULT_RH 0x8000
 #define SPG40_DEFAULT_T 0x6666
 
-uint16_t sraw_voc_intake;
-uint16_t sraw_voc_exaust;
-int32_t calculated_voc_intake;
-int32_t calculated_voc_exaust;
-uint32_t rh;
-int32_t t;
+extern uint16_t sraw_voc_intake;
+extern uint16_t sraw_voc_exaust;
+extern int32_t calculated_voc_intake;
+extern int32_t calculated_voc_exaust;
+extern uint32_t rh;
+extern int32_t t;
 
-bool temp_and_hum_sensor_initialized ;
-bool sgp40_intake_initialized;
-bool sgp40_exaust_initialized;
-bool hardware_initialized;
+extern bool temp_and_hum_sensor_initialized ;
+extern bool sgp40_intake_initialized;
+extern bool sgp40_exaust_initialized;
+extern bool hardware_initialized;
 
-GasIndexAlgorithmParams gas_index_algorithm_intake_params;
-GasIndexAlgorithmParams gas_index_algorithm_exaust_params;
+extern GasIndexAlgorithmParams gas_index_algorithm_intake_params;
+extern GasIndexAlgorithmParams gas_index_algorithm_exaust_params;
 
 /**
  * Handler level initialization function for VOC sensor.
@@ -58,5 +58,7 @@ bool init_voc_system(void);
  * @return Returns 0 on success, 1 - 5 on partial success, 6 - 7 on failure
  */
 uint8_t run_voc_measurement(void);
+
+bool run_sensor_self_test(uint8_t sensor_number);
 
 #endif /* __VOC_HANDLER_H__ */

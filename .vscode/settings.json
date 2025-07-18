@@ -5,6 +5,7 @@
         "usart.h": "c",
         "aht10.h": "c",
         "i2c.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "gpio.h": "c"
     }
 }
