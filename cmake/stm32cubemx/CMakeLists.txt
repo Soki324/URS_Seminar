@@ -11,10 +11,20 @@ set(MX_Defines_Syms
 # STM32CubeMX generated include paths
 set(MX_Include_Dirs
     ${CMAKE_SOURCE_DIR}/Core/Inc
+    ${CMAKE_SOURCE_DIR}/Libs/Inc
     ${CMAKE_SOURCE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc
     ${CMAKE_SOURCE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Include
+    # Libs
+    # SPG40 libs
+    ${CMAKE_SOURCE_DIR}/Libs/Inc/spg40
+    # Sensirion gas index algorithm libs
+    ${CMAKE_SOURCE_DIR}/Libs/Inc/sensirion_gas_index_algo
+    # aht10 libs
+    ${CMAKE_SOURCE_DIR}/Libs/Inc/aht10
+    # SSD1306 libs
+    ${CMAKE_SOURCE_DIR}/Core/Inc/ssd1306
 )
 
 # STM32CubeMX generated application sources
@@ -28,15 +38,20 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/sysmem.c
     ${CMAKE_SOURCE_DIR}/Core/Src/syscalls.c
     ${CMAKE_SOURCE_DIR}/startup_stm32f446xx.s
-    ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_common.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_i2c_hal.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_i2c.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/sgp40_i2c.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/aht10.c
     ${CMAKE_SOURCE_DIR}/Core/Src/temp_and_hum_sens.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/sensirion_gas_index_algorithm.c
     ${CMAKE_SOURCE_DIR}/Core/Src/voc_handler.c
     ${CMAKE_SOURCE_DIR}/Core/Src/display_handler.c
+    #Libs
+    # SPG40 libs
+    ${CMAKE_SOURCE_DIR}/Libs/Src/spg40/sensirion_common.c
+    ${CMAKE_SOURCE_DIR}/Libs/Src/spg40/sensirion_i2c_hal.c
+    ${CMAKE_SOURCE_DIR}/Libs/Src/spg40/sensirion_i2c.c
+    ${CMAKE_SOURCE_DIR}/Libs/Src/spg40/sgp40_i2c.c
+    # Sensirion gas index algorithm libs
+    ${CMAKE_SOURCE_DIR}/Libs/Src/sensirion_gas_index_algo/sensirion_gas_index_algorithm.c
+    # AHT10 libs
+    ${CMAKE_SOURCE_DIR}/Libs/Src/aht10/aht10.c
+
 )
 
 # STM32 HAL/LL Drivers
