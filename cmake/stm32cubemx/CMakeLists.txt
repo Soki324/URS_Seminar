@@ -24,7 +24,7 @@ set(MX_Include_Dirs
     # aht10 libs
     ${CMAKE_SOURCE_DIR}/Libs/Inc/aht10
     # SSD1306 libs
-    ${CMAKE_SOURCE_DIR}/Core/Inc/ssd1306
+    ${CMAKE_SOURCE_DIR}/Libs/Inc/ssd1306
 )
 
 # STM32CubeMX generated application sources
@@ -51,7 +51,10 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Libs/Src/sensirion_gas_index_algo/sensirion_gas_index_algorithm.c
     # AHT10 libs
     ${CMAKE_SOURCE_DIR}/Libs/Src/aht10/aht10.c
-
+    # SSD1306 libs
+    ${CMAKE_SOURCE_DIR}/Libs/Src/ssd1306/ssd1306.c
+    ${CMAKE_SOURCE_DIR}/Libs/Src/ssd1306/ssd1306_fonts.c
+    ${CMAKE_SOURCE_DIR}/Libs/Src/ssd1306/ssd1306_tests.c
 )
 
 # STM32 HAL/LL Drivers

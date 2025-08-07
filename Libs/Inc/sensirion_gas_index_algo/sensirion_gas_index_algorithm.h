@@ -1,4 +1,8 @@
 /*
+* Sensirion Gas Index Algorithm, link to the repository: https://github.com/Sensirion/gas-index-algorithm/tree/master
+*/
+
+/*
  * Copyright (c) 2022, Sensirion AG
  * All rights reserved.
  *

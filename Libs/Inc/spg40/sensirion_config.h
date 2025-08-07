@@ -1,4 +1,8 @@
 /*
+* Sensirion SPG40 driver, link to the repository: https://github.com/Sensirion/embedded-i2c-sgp40
+*/
+
+/*
  * Copyright (c) 2019, Sensirion AG
  * All rights reserved.
  *
