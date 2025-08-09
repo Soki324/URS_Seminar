@@ -25,6 +25,8 @@ set(MX_Include_Dirs
     ${CMAKE_SOURCE_DIR}/Libs/Inc/aht10
     # SSD1306 libs
     ${CMAKE_SOURCE_DIR}/Libs/Inc/ssd1306
+    # Encoder handler libs
+    ${CMAKE_SOURCE_DIR}/Libs/Inc/encoder_handler
 )
 
 # STM32CubeMX generated application sources
@@ -55,6 +57,8 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Libs/Src/ssd1306/ssd1306.c
     ${CMAKE_SOURCE_DIR}/Libs/Src/ssd1306/ssd1306_fonts.c
     ${CMAKE_SOURCE_DIR}/Libs/Src/ssd1306/ssd1306_tests.c
+    # Encoder handler libs
+    ${CMAKE_SOURCE_DIR}/Libs/Src/encoder_handler/encoder_handler.c
 )
 
 # STM32 HAL/LL Drivers

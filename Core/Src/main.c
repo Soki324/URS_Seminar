@@ -21,6 +21,8 @@
 #include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
+#include "encoder_handler.h"
+#include "display_handler.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

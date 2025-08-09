@@ -1,0 +1,65 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0" version="28.0.9">
+  <diagram name="Page-1" id="29LP0IzYC68pbFSI2-_c">
+    <mxGraphModel dx="2066" dy="1085" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="583" background="light-dark(#FFFFFF,#000000)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rIKzdVrRLVehUXA-5TJL-1" target="rIKzdVrRLVehUXA-5TJL-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-6" value="screenInitDone" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="rIKzdVrRLVehUXA-5TJL-3" vertex="1" connectable="0">
+          <mxGeometry x="-0.0571" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-1" value="&lt;div&gt;&lt;b&gt;Init&lt;/b&gt;&lt;/div&gt;&lt;div&gt;(boot the screen and draw initial splash)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="415" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rIKzdVrRLVehUXA-5TJL-2" target="rIKzdVrRLVehUXA-5TJL-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-7" value="sensorInitDone" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="rIKzdVrRLVehUXA-5TJL-5" vertex="1" connectable="0">
+          <mxGeometry x="-0.166" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-2" value="&lt;div&gt;&lt;b&gt;SensorInit&lt;/b&gt;&lt;/div&gt;&lt;div&gt;(run through display of sensor statuses)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="415" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rIKzdVrRLVehUXA-5TJL-4" target="rIKzdVrRLVehUXA-5TJL-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-10" value="&lt;div&gt;Timeout&lt;/div&gt;&lt;div&gt;without&lt;/div&gt;&lt;div&gt;IRQ&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="rIKzdVrRLVehUXA-5TJL-9" vertex="1" connectable="0">
+          <mxGeometry x="0.1337" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-4" value="&lt;b&gt;MainMenu&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="415" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rIKzdVrRLVehUXA-5TJL-8" target="rIKzdVrRLVehUXA-5TJL-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-13" value="IRQ" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="rIKzdVrRLVehUXA-5TJL-12" vertex="1" connectable="0">
+          <mxGeometry x="-0.1252" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-8" value="&lt;div&gt;&lt;b&gt;ScreenSleep&lt;/b&gt;&lt;/div&gt;&lt;div&gt;(MCU and sensors running but screen is off)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="180" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="rIKzdVrRLVehUXA-5TJL-11" target="rIKzdVrRLVehUXA-5TJL-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-15" value="Return" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="rIKzdVrRLVehUXA-5TJL-14" vertex="1" connectable="0">
+          <mxGeometry x="-0.378" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rIKzdVrRLVehUXA-5TJL-11" value="&lt;b&gt;ScreenSplashBoot&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="180" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
