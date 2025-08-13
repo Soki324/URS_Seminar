@@ -21,13 +21,14 @@
 #include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
-#include "encoder_handler.h"
-#include "display_handler.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "project_config.h"
 #include <stdio.h>
 #include "voc_handler.h"
+#include "encoder_handler.h"
+#include "display_handler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

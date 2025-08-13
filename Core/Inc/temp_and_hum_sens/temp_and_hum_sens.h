@@ -3,6 +3,7 @@
 
 #include "aht10.h"
 #include "usart.h"
+#include "project_config.h"
 
 extern int32_t sensor_temperature;
 extern uint32_t sensor_humidity;

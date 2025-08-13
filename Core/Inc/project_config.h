@@ -1,6 +1,10 @@
 #ifndef __PROJECT_CONFIG_H__
 #define __PROJECT_CONFIG_H__
 
+#include <stdint.h>
+#include <stdbool.h>
+#include "usart.h"
+
 /**
   ******************************************************************************
   * @file    project_config.h

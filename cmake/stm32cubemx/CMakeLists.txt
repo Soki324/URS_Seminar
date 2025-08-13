@@ -16,6 +16,17 @@ set(MX_Include_Dirs
     ${CMAKE_SOURCE_DIR}/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Include
+
+    #Core
+    # Display handler
+    ${CMAKE_SOURCE_DIR}/Core/Inc/display_handler
+    #System main
+    ${CMAKE_SOURCE_DIR}/Core/Inc/system_main
+    # VoC handler
+    ${CMAKE_SOURCE_DIR}/Core/Inc/voc_handler
+    # Temperature and humidity sensor
+    ${CMAKE_SOURCE_DIR}/Core/Inc/temp_and_hum_sens
+
     # Libs
     # SPG40 libs
     ${CMAKE_SOURCE_DIR}/Libs/Inc/spg40
@@ -40,9 +51,17 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/sysmem.c
     ${CMAKE_SOURCE_DIR}/Core/Src/syscalls.c
     ${CMAKE_SOURCE_DIR}/startup_stm32f446xx.s
-    ${CMAKE_SOURCE_DIR}/Core/Src/temp_and_hum_sens.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/voc_handler.c
-    ${CMAKE_SOURCE_DIR}/Core/Src/display_handler.c
+
+    #Core
+    # Display handler
+    ${CMAKE_SOURCE_DIR}/Core/Src/display_handler/display_handler.c
+    # System main
+    ${CMAKE_SOURCE_DIR}/Core/Src/system_main/system_main.c
+    # VoC handler
+    ${CMAKE_SOURCE_DIR}/Core/Src/voc_handler/voc_handler.c
+    # Temperature and humidity sensor
+    ${CMAKE_SOURCE_DIR}/Core/Src/temp_and_hum_sens/temp_and_hum_sens.c
+
     #Libs
     # SPG40 libs
     ${CMAKE_SOURCE_DIR}/Libs/Src/spg40/sensirion_common.c

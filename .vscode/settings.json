@@ -6,6 +6,8 @@
         "aht10.h": "c",
         "i2c.h": "c",
         "main.h": "c",
-        "gpio.h": "c"
+        "gpio.h": "c",
+        "project_config.h": "c",
+        "voc_handler.h": "c"
     }
 }
