@@ -46,7 +46,7 @@
 * @param None
 * @return bool - true if initialization is successful, false otherwise
 */
-bool aht10_Init(void);
+bool AHT10Init(void);
 
 /**
  * AHT10 Read Temperature and Humidity Function
@@ -54,20 +54,20 @@ bool aht10_Init(void);
  * @param humidity Pointer to store the humidity value
  * @return bool - true if reading is successful, false otherwise
  */
-bool aht10_ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity);
+bool AHT10ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity);
 
 /**
 * AHT10 Soft Reset Function
 * @param None
 * @return bool - true if soft reset is successful, false otherwise
 */
-bool aht10_SoftReset(void);
+bool AHT10SoftReset(void);
 
 /**
 * AHT10 Start Measurement Function
 * @param None
 * @return bool - true if measurement start is successful, false otherwise
 */
-bool aht10_StartMeasurement(void);
+bool AHT10StartMeasurement(void);
 
 #endif /* __AHT10_H__ */

@@ -14,14 +14,14 @@ extern uint32_t sensor_humidity;
  * @param None
  * @return bool - true if reading is successful, false otherwise
  */
-bool init_temp_and_hum_sensor(void);
+bool InitTempAndHumSensor(void);
 
 /**
  * Gets the temperature and humidity readings from the sensor.
  * @param None
  * @return None
  */
-void run_temp_and_hum_sensor_measurement(void);
+void RunTempAndHumSensorMeasurement(void);
 
 
 #endif /* AHT10_HANDLER_H */

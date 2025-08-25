@@ -3,7 +3,7 @@
 int32_t sensor_temperature;
 uint32_t sensor_humidity;
 
-bool init_temp_and_hum_sensor() {
+bool InitTempAndHumSensor() {
     bool hardware_initialized = true;
     printf("Starting temperature and humidity sensor...\n\n");
     if (!aht10_Init()) {
@@ -22,7 +22,7 @@ bool init_temp_and_hum_sensor() {
 }
 
 
-void run_temp_and_hum_sensor_measurement(void) {
+void RunTempAndHumSensorMeasurement(void) {
 
     if (aht10_ReadTemperatureAndHumidity(&sensor_temperature, &sensor_humidity)) {
         printf("Temperature: %ld, Humidity: %lu\n", sensor_temperature, sensor_humidity);

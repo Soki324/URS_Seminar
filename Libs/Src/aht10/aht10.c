@@ -1,7 +1,7 @@
 #include "aht10.h"
 #include "i2c.h"
 
-bool aht10_Init(){
+bool AHT10Init(){
 
     uint8_t initCommand[3] = {AHT10_INIT_CMD, AHT10_INIT_NORMAL_MODE | AHT10_INIT_CYCLE_MODE | AHT10_INIT_CMD_MODE | AHT10_INIT_CAL_ENABLE, 0x00};
     initCommand[0] = AHT10_INIT_CMD; // Initialization command
@@ -17,7 +17,7 @@ bool aht10_Init(){
     return true; // Initialization successful
 }
 
-bool aht10_SoftReset(void) {
+bool AHT10SoftReset(void) {
 
     uint8_t resetCommand = AHT10_SOFT_RESET_CMD;
     HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(&hi2c3, AHT10_ADDRESS, &resetCommand, 1, HAL_MAX_DELAY);
@@ -31,7 +31,7 @@ bool aht10_SoftReset(void) {
 
 }
 
-bool aht10_StartMeasurement(void) {
+bool AHT10StartMeasurement(void) {
 
     uint8_t startCommand[3];
     startCommand[0] = AHT10_START_MEASURMENT_CMD; // Start measurement command
@@ -48,7 +48,7 @@ bool aht10_StartMeasurement(void) {
 
 }
 
-bool aht10_ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity) {
+bool AHT10ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity) {
 
     if (temperature == NULL || humidity == NULL) {
         return false; // Invalid pointers

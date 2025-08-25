@@ -20,12 +20,12 @@ set(MX_Include_Dirs
     #Core
     # Display handler
     ${CMAKE_SOURCE_DIR}/Core/Inc/display_handler
-    #System main
-    ${CMAKE_SOURCE_DIR}/Core/Inc/system_main
     # VoC handler
     ${CMAKE_SOURCE_DIR}/Core/Inc/voc_handler
     # Temperature and humidity sensor
     ${CMAKE_SOURCE_DIR}/Core/Inc/temp_and_hum_sens
+    # State machine
+    ${CMAKE_SOURCE_DIR}/Core/Inc/system_main
 
     # Libs
     # SPG40 libs
@@ -55,12 +55,12 @@ set(MX_Application_Src
     #Core
     # Display handler
     ${CMAKE_SOURCE_DIR}/Core/Src/display_handler/display_handler.c
-    # System main
-    ${CMAKE_SOURCE_DIR}/Core/Src/system_main/system_main.c
     # VoC handler
     ${CMAKE_SOURCE_DIR}/Core/Src/voc_handler/voc_handler.c
     # Temperature and humidity sensor
     ${CMAKE_SOURCE_DIR}/Core/Src/temp_and_hum_sens/temp_and_hum_sens.c
+    # State machine
+    ${CMAKE_SOURCE_DIR}/Core/Src/system_main/state_machine_main.c
 
     #Libs
     # SPG40 libs
