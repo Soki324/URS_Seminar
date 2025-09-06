@@ -24,9 +24,9 @@ int16_t error = 0;
 uint16_t serial_number[3];
 uint8_t serial_number_size = 3;
 
-bool init_voc_system(void) {
+bool InitVocSystem(void) {
 
-    if(!init_temp_and_hum_sensor()) {
+    if(!InitTempAndHumSensor()) {
         temp_and_hum_sensor_initialized = false;
     } else {
         temp_and_hum_sensor_initialized = true;
@@ -45,26 +45,44 @@ bool init_voc_system(void) {
             printf("SGP40 Intake initialization failed, error code: %d\n", error);
             sgp40_intake_initialized = false;
         } else {
-            sgp40_intake_initialized = true;
-            printf("SGP40 Intake initialized successfully.\n\n");
+            /* Turn off heater for SGP40 Intake
+            * Found this in init of nevermore-controller, not sure if it's necessary
+            */
+            error = sgp40_turn_heater_off();
+            if (error) {
+                printf("Error turning off heater for SGP40 Intake: %i\n", error);
+                sgp40_intake_initialized = false;
+            } else {
+                sgp40_intake_initialized = true;
+                printf("SGP40 Intake initialized successfully.\n\n");
+            }
         }
     }
 
     printf("Starting SGP40 Exaust sensor...\n\n");
     error = sensirion_i2c_hal_select_bus(SPG40Exaust);
     if (error) {
-        printf("Error selecting I2C bus for SGP40 Intake: %i\n", error);
-        sgp40_intake_initialized = false;
+        printf("Error selecting I2C bus for SGP40 Exaust: %i\n", error);
+        sgp40_exaust_initialized = false;
         return false;
     } else {
-        printf("I2C bus for SGP40 Intake selected successfully.\n\n");
+        printf("I2C bus for SGP40 Exaust selected successfully.\n\n");
         error = sgp40_get_serial_number(serial_number, serial_number_size);
         if (error) {
-            printf("SGP40 Intake initialization failed, error code: %d\n", error);
-            sgp40_intake_initialized = false;
+            printf("SGP40 Exaust initialization failed, error code: %d\n", error);
+            sgp40_exaust_initialized = false;
         } else {
-            sgp40_intake_initialized = true;
-            printf("SGP40 Intake initialized successfully.\n\n");
+            /* Turn off heater for SGP40 Exaust
+            * Found this in init of nevermore-controller, not sure if it's necessary
+            */
+            error = sgp40_turn_heater_off();
+            if (error) {
+                printf("Error turning off heater for SGP40 Exaust: %i\n", error);
+                sgp40_exaust_initialized = false;
+            } else {
+                sgp40_exaust_initialized = true;
+                printf("SGP40 Exaust initialized successfully.\n\n");
+            }
         }
     }
 
@@ -80,7 +98,7 @@ bool init_voc_system(void) {
 }
 
 
-uint8_t run_voc_measurement(void) {
+uint8_t RunVocMeasurement(void) {
 
     uint8_t return_value = 0;
 
@@ -140,7 +158,7 @@ uint8_t run_voc_measurement(void) {
     return return_value;
 }
 
-bool run_sensor_self_test(uint8_t sensor_number) {
+bool RunSensorSelfTest(uint8_t sensor_number) {
     uint16_t test_result;
     int16_t error;
 
@@ -171,4 +189,13 @@ bool run_sensor_self_test(uint8_t sensor_number) {
     }
 
     return true;
+}
+
+bool RunSensorsCalibration(void) {
+    bool ret = false;
+    GasIndexAlgorithm_reset(&gas_index_algorithm_intake_params);
+    GasIndexAlgorithm_reset(&gas_index_algorithm_exaust_params);
+    RunVocMeasurement();
+    
+    return ret;
 }

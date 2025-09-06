@@ -33,7 +33,7 @@ extern GasIndexAlgorithmParams gas_index_algorithm_exaust_params;
  * @param None
  * @return bool - true if reading is successful, false otherwise
  */
-bool init_voc_system(void);
+bool InitVocSystem(void);
 
 /**
  * Handler level initialization function for VOC sensor.
@@ -57,8 +57,10 @@ bool init_voc_system(void);
  *  7 - fail, used default temperature and humidity (temperature and humidity sensor not working), no voc sensor values read
  * @return Returns 0 on success, 1 - 5 on partial success, 6 - 7 on failure
  */
-uint8_t run_voc_measurement(void);
+uint8_t RunVocMeasurement(void);
 
-bool run_sensor_self_test(uint8_t sensor_number);
+
+
+bool RunSensorSelfTest(uint8_t sensor_number);
 
 #endif /* __VOC_HANDLER_H__ */

@@ -5,11 +5,14 @@
 #include <stdint.h>
 #include "usart.h"
 #include "project_config.h"
+#include "display_handler.h"
+#include "voc_handler.h"
 
 /*
  * Finite State Machine (FSM) states for the system
  */
-typedef enum kSystemFSMStates{
+typedef enum {
+    OFF,
     INIT_SYSTEM,
     CALIBRATION,
     IDLE_MEASUREMENT,
@@ -17,45 +20,33 @@ typedef enum kSystemFSMStates{
     FILTER_AND_MEASURE,
     FAULT,
     FILTER_ERROR
-};
-
-
-/**
- * State functions
- */
-void state_init(void);
-void state_calibration(void);
-void state_idle_measurement(void);
-void state_sleep(void);
-void state_filter_and_measure(void);
-void state_fault(void);
-void state_filter_error(void);
+} kSystemFSMStates;
 
 /*
  * Events for FSM transitions
  */
-typedef enum kSystemEvent {
+typedef enum {
     /* System initialization successful */
-    SYSTEM_INIT_SUCCESS = 0,
+    SYSTEM_INIT_SUCCESS_EVENT = 0,
     /* System initialization failed */
-    SYSTEM_ERROR = 1,
+    SYSTEM_ERROR_EVENT = 1,
     /* Calibration complete */
-    CALIBRATION_COMPLETE = 2,
+    CALIBRATION_COMPLETE_EVENT = 2,
     /* VOC concentration is within safe threshold */
-    VOC_SAFE = 3,
+    VOC_SAFE_EVENT = 3,
     /* VOC concentration is above safe threshold */
-    VOC_UNSAFE = 4,
+    VOC_UNSAFE_EVENT = 4,
     /* System woken up by timer interrupt */
-    SLEEP_TIMEOUT = 5,
+    SLEEP_TIMEOUT_EVENT = 5,
     /* Filter VOC scrubbing low or filter replacement timeout */
-    FILTER_WARNING = 6,
+    FILTER_WARNING_EVENT = 6,
     /* Filter VOC scrubbing below threshold or fan failure */
-    FILTER_ERROR = 7
-};
+    FILTER_ERROR_EVENT = 7
+} kSystemEvent;
 
 typedef struct{
-    SystemFSMStates currentState;
-    SystemFSMStates previousState;
+    kSystemEvent currentState;
+    kSystemEvent previousState;
 } SystemStateMachine;
 
 
@@ -72,5 +63,18 @@ void StateMachineInit();
  * @return None
  */
 void HandleEvent(kSystemEvent event);
+
+
+/********************************************************************************************
+ * State functions
+ *
+ ********************************************************************************************/
+void StateFunctionInit(void);
+void StateFunctionCalibration(void);
+void StateFunctionIdleMeasurement(void);
+void StateFunctionSleep(void);
+void StateFunctionFilterAndMeasure(void);
+void StateFunctionFault(void);
+void StateFunctionFilterError(void);
 
 #endif /* __STATE_MACHINE_MAIN_H__ */
