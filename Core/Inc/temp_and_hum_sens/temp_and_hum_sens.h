@@ -5,8 +5,8 @@
 #include "usart.h"
 #include "project_config.h"
 
-extern int32_t sensor_temperature;
-extern uint32_t sensor_humidity;
+extern int32_t sensor_temperature_c;
+extern uint32_t sensor_humidity_percent;
 
 /**
  * Handler level initialization function for AHT10 sensor.
@@ -21,7 +21,7 @@ bool InitTempAndHumSensor(void);
  * @param None
  * @return None
  */
-void RunTempAndHumSensorMeasurement(void);
+bool RunTempAndHumSensorMeasurement(void);
 
 
 #endif /* AHT10_HANDLER_H */

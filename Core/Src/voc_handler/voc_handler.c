@@ -19,6 +19,7 @@ bool hardware_initialized;
 GasIndexAlgorithmParams gas_index_algorithm_intake_params;
 GasIndexAlgorithmParams gas_index_algorithm_exaust_params;
 
+bool voc_sensors_calibrated = false;
 
 int16_t error = 0;
 uint16_t serial_number[3];
@@ -26,6 +27,7 @@ uint8_t serial_number_size = 3;
 
 bool InitVocSystem(void) {
 
+    printf("Initializing VOC system...\n\n");
     if(!InitTempAndHumSensor()) {
         temp_and_hum_sensor_initialized = false;
     } else {
@@ -104,9 +106,10 @@ uint8_t RunVocMeasurement(void) {
 
     sensirion_i2c_hal_sleep_usec(SPG40_SLEEP_TIME_US);
     if(temp_and_hum_sensor_initialized) {
-        run_temp_and_hum_sensor_measurement();
-        t = sensor_temperature;
-        rh = sensor_humidity;
+        /* Add check to return status */
+        RunTempAndHumSensorMeasurement();
+        t = sensor_temperature_c;
+        rh = sensor_humidity_percent;
     } else {
         printf("Warning temperature and humidity sensor not initialized properly, using default values\n");
         return_value |= 0x01; // Set bit 0 to indicate temperature and humidity sensor failure
@@ -114,9 +117,11 @@ uint8_t RunVocMeasurement(void) {
         rh = SPG40_DEFAULT_RH;
     }
 
+    ConvertTemperatureAndHumidityToTicks();
+
     if(sgp40_intake_initialized) {
         sensirion_i2c_hal_select_bus(SPG40Intake);
-        error = sgp40_measure_raw_signal(t, rh, &sraw_voc_intake);
+        error = sgp40_measure_raw_signal(temperature_ticks, humidity_ticks, &sraw_voc_intake);
         if (error) {
             printf("Error executing sgp40_measure_raw_signal() for intake: %i\n", error);
             return_value |= 0x02; // Set bit 2 to indicate SGP40 Intake sensor failure
@@ -137,7 +142,7 @@ uint8_t RunVocMeasurement(void) {
 
     if(sgp40_exaust_initialized) {
         sensirion_i2c_hal_select_bus(SPG40Exaust);
-        error = sgp40_measure_raw_signal(t, rh, &sraw_voc_exaust);
+        error = sgp40_measure_raw_signal(temperature_ticks, humidity_ticks, &sraw_voc_exaust);
         if (error) {
             printf("Error executing sgp40_measure_raw_signal() for exaust: %i\n", error);
             return_value |= 0x04; // Set bit 3 to indicate SGP40 Exaust sensor failure
@@ -151,7 +156,7 @@ uint8_t RunVocMeasurement(void) {
         }
     } else {
         printf("Warning SGP40 Exaust sensor not initialized properly, using default values\n");
-        return_value |= 0x04; // Set bit 2 to indicate SGP40 Exaust sensor failure
+        return_value |= 0x04; // Set bit 3 to indicate SGP40 Exaust sensor failure
         sraw_voc_exaust = 0;
         calculated_voc_exaust = -1;
     }
@@ -193,9 +198,24 @@ bool RunSensorSelfTest(uint8_t sensor_number) {
 
 bool RunSensorsCalibration(void) {
     bool ret = false;
-    GasIndexAlgorithm_reset(&gas_index_algorithm_intake_params);
-    GasIndexAlgorithm_reset(&gas_index_algorithm_exaust_params);
-    RunVocMeasurement();
-    
+    printf("Calibrating VOC sensors...\n\n");
+    if(hardware_initialized) {
+        GasIndexAlgorithm_reset(&gas_index_algorithm_intake_params);
+        GasIndexAlgorithm_reset(&gas_index_algorithm_exaust_params);
+        RunVocMeasurement();
+        uint8_t voc_measurement_status = RunVocMeasurement();
+    if(voc_measurement_status < 5) {
+        ret = true;
+        voc_sensors_calibrated = true;
+    }
+    } else {
+        printf("Hardware not initialized properly, cannot calibrate VOC sensors.\n");
+    }
     return ret;
+}
+
+void ConvertTemperatureAndHumidityToTicks() {
+    // Calculate ticks using the formula from SGP40 datasheet, table 10
+    temperature_ticks = (uint16_t)((t + 45) * 65535 / 175);
+    humidity_ticks = (uint16_t)((rh * 65535) / 100);
 }

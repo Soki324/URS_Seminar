@@ -8,8 +8,11 @@
 #include "sensirion_gas_index_algorithm.h"
 #include "temp_and_hum_sens.h"
 
+/* SGP40 sensor sleep time in microseconds */
 #define SPG40_SLEEP_TIME_US 1000000
+/* Default temperature and humidity values for SGP40 sensor, value represents 50% */
 #define SPG40_DEFAULT_RH 0x8000
+/* Default temperature value for SGP40 sensor, value represents 20C */
 #define SPG40_DEFAULT_T 0x6666
 
 extern uint16_t sraw_voc_intake;
@@ -18,11 +21,16 @@ extern int32_t calculated_voc_intake;
 extern int32_t calculated_voc_exaust;
 extern uint32_t rh;
 extern int32_t t;
+extern uint16_t temperature_ticks;
+extern uint16_t humidity_ticks;
+
+extern bool global_air_quality_safe;
 
 extern bool temp_and_hum_sensor_initialized ;
 extern bool sgp40_intake_initialized;
 extern bool sgp40_exaust_initialized;
 extern bool hardware_initialized;
+extern bool voc_sensors_calibrated;
 
 extern GasIndexAlgorithmParams gas_index_algorithm_intake_params;
 extern GasIndexAlgorithmParams gas_index_algorithm_exaust_params;
@@ -59,8 +67,20 @@ bool InitVocSystem(void);
  */
 uint8_t RunVocMeasurement(void);
 
+/**
+ * Converts temperature and humidity values to ticks.
+ * Ticks are formatted values required by SGP40 sensor for compensation.
+ * Formula found in SGP40 datasheet, table 10.
+ * @param None
+ * @return None
+ */
+void ConvertTemperatureAndHumidityToTicks();
 
-
+/**
+ * Runs self-test for specified SGP40 sensor.
+ * @param sensor_number - 0 for intake sensor, 1 for exaust sensor
+ * @return bool - true if self-test passed, false otherwise
+ */
 bool RunSensorSelfTest(uint8_t sensor_number);
 
 #endif /* __VOC_HANDLER_H__ */

@@ -24,7 +24,11 @@ void StateFunctionInit(void) {
 void StateFunctionCalibration(void) {
     stateMachine.currentState = CALIBRATION;
     // Start calibration process
-    RunSensorsCalibration();
+    if(RunSensorsCalibration()) {
+        HandleEvent(CALIBRATION_COMPLETE_EVENT);
+    } else {
+        HandleEvent(SYSTEM_ERROR_EVENT);
+    }
 }
 
 void StateFunctionIdleMeasurement(void) {
@@ -67,7 +71,7 @@ void HandleEvent(kSystemEvent event) {
             StateFunctionFault();
             break;
         case CALIBRATION_COMPLETE_EVENT:
-            // Handle calibration complete event
+            StateFunctionIdleMeasurement();
             break;
         case VOC_SAFE_EVENT:
             // Handle safe VOC levels
