@@ -11,7 +11,7 @@ void StateMachineInit(void) {
 void StateFunctionInit(void) {
     bool ret = false;
     stateMachine.currentState = INIT_SYSTEM;
-    if(InitVocSystem /*&& init_display_system*/) {
+    if(InitVocSystem() /*&& init_display_system()*/) {
         ret = true;
     }
     if(ret) {
@@ -33,8 +33,21 @@ void StateFunctionCalibration(void) {
 
 void StateFunctionIdleMeasurement(void) {
     stateMachine.currentState = IDLE_MEASUREMENT;
-    // Start idle measurement process
-    StartIdleMeasurement();
+    uint8_t measurement_ret = RunVocMeasurement();
+    if(measurement_ret < 5) {
+        if(calculated_voc_intake < PROJECT_CONFIG_VOC_SAFE_THRESHOLD && calculated_voc_exaust < PROJECT_CONFIG_VOC_SAFE_THRESHOLD) {
+            // VOC levels are safe
+            global_air_quality_safe = true;
+            HandleEvent(VOC_SAFE_EVENT);
+        } else {
+            // VOC levels are unsafe
+            global_air_quality_safe = false;
+            HandleEvent(VOC_UNSAFE_EVENT);
+        }
+    } else {
+        // Measurement failed
+        HandleEvent(SYSTEM_ERROR_EVENT);
+    }
 }
 
 void StateFunctionSleep(void) {
@@ -56,7 +69,7 @@ void StateFunctionFault(void) {
 }
 
 void StateFunctionFilterError(void){
-    stateMachine.currentState = FILTER_ERROR;
+    stateMachine.currentState = NOTIFY_FILTER;
     // Handle filter error state
     HandleFilterError();
 }
@@ -74,19 +87,19 @@ void HandleEvent(kSystemEvent event) {
             StateFunctionIdleMeasurement();
             break;
         case VOC_SAFE_EVENT:
-            // Handle safe VOC levels
+            StateFunctionSleep();
             break;
         case VOC_UNSAFE_EVENT:
-            // Handle unsafe VOC levels
+            StateFunctionFilterAndMeasure();
             break;
         case SLEEP_TIMEOUT_EVENT:
-            // Handle sleep timeout event
+            StateFunctionIdleMeasurement();
             break;
         case FILTER_WARNING_EVENT:
             // Handle filter warning event
             break;
-        case FILTER_ERROR_EVENT:
-            // Handle filter error event
+        case NOTIFY_FILTER_COMPLETE:
+            // Handle filter replacement notification
             break;
         default:
             // Handle unknown events

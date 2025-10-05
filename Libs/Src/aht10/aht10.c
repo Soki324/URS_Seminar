@@ -53,7 +53,7 @@ bool AHT10ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity) {
     if (temperature == NULL || humidity == NULL) {
         return false; // Invalid pointers
     }
-    if(!aht10_StartMeasurement()) {
+    if(!AHT10StartMeasurement()) {
         return false; // Failed to start measurement
     }
     uint8_t data[6]; // Buffer to hold the received data

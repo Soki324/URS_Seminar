@@ -16,6 +16,8 @@ bool sgp40_intake_initialized;
 bool sgp40_exaust_initialized;
 bool hardware_initialized;
 
+bool global_air_quality_safe = true;
+
 GasIndexAlgorithmParams gas_index_algorithm_intake_params;
 GasIndexAlgorithmParams gas_index_algorithm_exaust_params;
 

@@ -19,7 +19,7 @@ typedef enum {
     SLEEP,
     FILTER_AND_MEASURE,
     FAULT,
-    FILTER_ERROR
+    NOTIFY_FILTER
 } kSystemFSMStates;
 
 /*
@@ -40,8 +40,8 @@ typedef enum {
     SLEEP_TIMEOUT_EVENT = 5,
     /* Filter VOC scrubbing low or filter replacement timeout */
     FILTER_WARNING_EVENT = 6,
-    /* Filter VOC scrubbing below threshold or fan failure */
-    FILTER_ERROR_EVENT = 7
+    /* Notification for filter replacement done */
+    NOTIFY_FILTER_COMPLETE = 7
 } kSystemEvent;
 
 typedef struct{
@@ -49,6 +49,8 @@ typedef struct{
     kSystemEvent previousState;
 } SystemStateMachine;
 
+
+bool FilterWarningActive = false;
 
 /**
  * Initialize the state machine, starting without a defined state and goes to INIT_STATE

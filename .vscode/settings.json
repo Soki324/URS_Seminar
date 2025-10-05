@@ -9,6 +9,10 @@
         "gpio.h": "c",
         "project_config.h": "c",
         "voc_handler.h": "c",
-        "ssd1306.h": "c"
+        "ssd1306.h": "c",
+        "display_handler.h": "c",
+        "state_machine_main.h": "c",
+        "stdint.h": "c",
+        "temp_and_hum_sens.h": "c"
     }
 }

@@ -6,12 +6,12 @@ uint32_t sensor_humidity_percent;
 bool InitTempAndHumSensor() {
     bool hardware_initialized = true;
     printf("Starting temperature and humidity sensor...\n\n");
-    if (!aht10_Init()) {
+    if (!AHT10Init()) {
         printf("AHT10 initialization failed.\n");
         hardware_initialized = false;
     } else {
         printf("Temperature and humidity sensor initialized successfully.\n\n");
-        if(!aht10_StartMeasurement()) {
+        if(!AHT10StartMeasurement()) {
             printf("Temperature and humidity sensor start measurement failed.\n");
             hardware_initialized = false;
         } else {
