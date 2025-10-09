@@ -15,6 +15,13 @@
 #define DEBUG_LEVEL 3 // Set the debug level (0-3)
 
 /**
+ * @brief Number of hall effect sensor interrupts per revolution of the fan
+ * this number depends on the fan model and its design. Usually, it is 2 or 4.
+ * 
+ */
+#define FAN_HALL_SENSOR_NUMBER 2
+
+/**
  * @brief Safe VOC threshold based on VOC sensor readings and calulations from sensirion_gas_index_algorithm
  * is nicely exlplained and represented here: https://sensirion.com/media/documents/02232963/6294E043/Info_Note_VOC_Index.pdf
  * 

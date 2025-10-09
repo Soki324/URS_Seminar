@@ -49,6 +49,8 @@ typedef struct{
     kSystemEvent previousState;
 } SystemStateMachine;
 
+extern SystemStateMachine stateMachine;
+
 
 bool FilterWarningActive = false;
 

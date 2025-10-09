@@ -26,6 +26,8 @@ set(MX_Include_Dirs
     ${CMAKE_SOURCE_DIR}/Core/Inc/temp_and_hum_sens
     # State machine
     ${CMAKE_SOURCE_DIR}/Core/Inc/system_main
+    # Fan handler
+    ${CMAKE_SOURCE_DIR}/Core/Inc/fan_handler
 
     # Libs
     # SPG40 libs
@@ -61,6 +63,8 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/temp_and_hum_sens/temp_and_hum_sens.c
     # State machine
     ${CMAKE_SOURCE_DIR}/Core/Src/system_main/state_machine_main.c
+    # Fan handler
+    ${CMAKE_SOURCE_DIR}/Core/Src/fan_handler/fan_handler.c
 
     #Libs
     # SPG40 libs
