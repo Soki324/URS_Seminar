@@ -60,6 +60,8 @@ void Error_Handler(void);
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
 #define B1_EXTI_IRQn EXTI15_10_IRQn
+#define FanPWM_Pin GPIO_PIN_0
+#define FanPWM_GPIO_Port GPIOA
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
@@ -68,8 +70,6 @@ void Error_Handler(void);
 #define LD2_GPIO_Port GPIOA
 #define Speaker_Pin GPIO_PIN_14
 #define Speaker_GPIO_Port GPIOB
-#define Fan_PWM_Pin GPIO_PIN_15
-#define Fan_PWM_GPIO_Port GPIOB
 #define FanTach_Pin GPIO_PIN_7
 #define FanTach_GPIO_Port GPIOC
 #define FanTach_EXTI_IRQn EXTI9_5_IRQn

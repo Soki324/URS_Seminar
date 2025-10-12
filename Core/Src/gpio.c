@@ -54,7 +54,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, Speaker_Pin|Fan_PWM_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(Speaker_GPIO_Port, Speaker_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -69,12 +69,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : Speaker_Pin Fan_PWM_Pin */
-  GPIO_InitStruct.Pin = Speaker_Pin|Fan_PWM_Pin;
+  /*Configure GPIO pin : Speaker_Pin */
+  GPIO_InitStruct.Pin = Speaker_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(Speaker_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : FanTach_Pin */
   GPIO_InitStruct.Pin = FanTach_Pin;

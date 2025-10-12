@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "project_config.h"
+#include "tim.h"
 
 /**
  * @brief Fan speed levels
@@ -14,6 +15,8 @@ typedef enum {
     FAN_MEDIUM = 2,
     FAN_HIGH = 3
 } FanSpeed;
+
+extern FanSpeed selectedFanspeed;
 
 /**
  * @brief Current fan RPM
@@ -38,6 +41,12 @@ bool SetFanSpeed(FanSpeed speed);
  * @return The current fan speed level
  */
 FanSpeed GetFanSpeed(void);
+
+/**
+ * @brief Perform a self-test on the fan hardware
+ * @return true if the self-test is successful, false otherwise
+ */
+bool RunFanSelfTest(void);
 
 /**
  * @brief Update the fan RPM based on hall sensor interrupts

@@ -13,6 +13,8 @@
         "display_handler.h": "c",
         "state_machine_main.h": "c",
         "stdint.h": "c",
-        "temp_and_hum_sens.h": "c"
+        "temp_and_hum_sens.h": "c",
+        "tim.h": "c",
+        "cstdlib": "c"
     }
 }
