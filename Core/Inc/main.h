@@ -59,7 +59,9 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
-#define B1_EXTI_IRQn EXTI15_10_IRQn
+#define FanTach_Pin GPIO_PIN_1
+#define FanTach_GPIO_Port GPIOC
+#define FanTach_EXTI_IRQn EXTI1_IRQn
 #define FanPWM_Pin GPIO_PIN_0
 #define FanPWM_GPIO_Port GPIOA
 #define USART_TX_Pin GPIO_PIN_2
@@ -70,18 +72,6 @@ void Error_Handler(void);
 #define LD2_GPIO_Port GPIOA
 #define Speaker_Pin GPIO_PIN_14
 #define Speaker_GPIO_Port GPIOB
-#define FanTach_Pin GPIO_PIN_7
-#define FanTach_GPIO_Port GPIOC
-#define FanTach_EXTI_IRQn EXTI9_5_IRQn
-#define Encoder_Button_Pin GPIO_PIN_10
-#define Encoder_Button_GPIO_Port GPIOA
-#define Encoder_Button_EXTI_IRQn EXTI15_10_IRQn
-#define Encoder_Input_B_Pin GPIO_PIN_11
-#define Encoder_Input_B_GPIO_Port GPIOA
-#define Encoder_Input_B_EXTI_IRQn EXTI15_10_IRQn
-#define Encoder_Input_A_Pin GPIO_PIN_12
-#define Encoder_Input_A_GPIO_Port GPIOA
-#define Encoder_Input_A_EXTI_IRQn EXTI15_10_IRQn
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
