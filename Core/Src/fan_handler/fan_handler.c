@@ -1,6 +1,7 @@
 #include "fan_handler.h"
 
-uint16_t currentFanRPM = 0;
+volatile uint32_t fan_pulse_count = 0;
+uint32_t currentFanRPM = 0;
 
 FanSpeed selectedFanspeed = FAN_OFF;
 
@@ -48,6 +49,35 @@ FanSpeed GetFanSpeed(void) {
     return selectedFanspeed;
 }
 
+bool RunFanSelfTest(void) {
+    // Perform a self-test on the fan hardware
+    return true;
+}
+
 void UpdateFanRPM(void) {
-    // Update the fan RPM based on hall sensor interrupts
+    // Clear the previous pulse count
+    fan_pulse_count = 0;
+    // Set the fan speed to medium for testing
+    SetFanSpeed(FAN_MEDIUM);
+    // Start tachometer interrupt
+    StartTachInterrupt();
+    // Start non blocking timer for 15 seconds
+
+}
+
+void StartTachInterrupt(void) {
+    // Enable EXTI interrupt for fan tachometer pin
+    HAL_NVIC_SetPriority(EXTI1_IRQn, 2, 0);
+    HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+}
+
+void StopTachInterrupt(void) {
+    // Disable EXTI interrupt for fan tachometer pin
+    HAL_NVIC_DisableIRQ(EXTI1_IRQn);
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+    if (GPIO_Pin == FanTach_Pin) {
+        fan_pulse_count++;
+    }
 }

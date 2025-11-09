@@ -15,6 +15,7 @@
         "stdint.h": "c",
         "temp_and_hum_sens.h": "c",
         "tim.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "fan_handler.h": "c"
     }
 }

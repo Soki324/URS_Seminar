@@ -18,10 +18,15 @@ typedef enum {
 
 extern FanSpeed selectedFanspeed;
 
+/** 
+ * @brief Current fan pulse count
+ */
+extern volatile uint32_t fan_pulse_count;
+
 /**
  * @brief Current fan RPM
  */
-uint16_t currentFanRPM;
+extern uint32_t currentFanRPM;
 
 /**
  * @brief Initialize the fan handler module
@@ -52,4 +57,20 @@ bool RunFanSelfTest(void);
  * @brief Update the fan RPM based on hall sensor interrupts
  */
 void UpdateFanRPM(void);
+
+/**
+ * @brief Start the tachometer interrupt for fan RPM measurement
+ */
+void StartTachInterrupt(void);
+
+/**
+ * @brief Stop the tachometer interrupt for fan RPM measurement
+ */
+void StopTachInterrupt(void);
+
+/**
+ * @brief Calculate the current fan RPM from pulse count
+ */
+void CalculateFanRPM(void);
+
 #endif // __FAN_HANDLER_H__
