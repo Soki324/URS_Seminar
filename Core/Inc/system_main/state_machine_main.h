@@ -54,8 +54,7 @@ typedef struct{
 
 extern SystemStateMachine stateMachine;
 
-
-bool FilterWarningActive = false;
+extern bool FilterWarningActive;
 
 /**
  * Initialize the state machine, starting without a defined state and goes to INIT_STATE

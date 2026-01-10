@@ -10,6 +10,8 @@ int32_t calculated_voc_intake;
 int32_t calculated_voc_exaust;
 uint32_t rh;
 int32_t t;
+uint16_t temperature_ticks;
+uint16_t humidity_ticks;
 
 bool temp_and_hum_sensor_initialized ;
 bool sgp40_intake_initialized;

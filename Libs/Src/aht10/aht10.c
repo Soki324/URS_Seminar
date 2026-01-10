@@ -7,7 +7,7 @@ bool AHT10Init(){
     initCommand[0] = AHT10_INIT_CMD; // Initialization command
     initCommand[1] = AHT10_INIT_CAL_ENABLE; // Enable factory calibration
     initCommand[2] = AHT10_INIT_NORMAL_MODE; // Set normal mode 
-    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(&hi2c3, AHT10_ADDRESS, initCommand, sizeof(initCommand), HAL_MAX_DELAY);
+    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(TEMP_AND_HUM_SENSOR_I2C_BUS, AHT10_ADDRESS, initCommand, sizeof(initCommand), HAL_MAX_DELAY);
     
     if (status != HAL_OK) {
         return false; // Initialization failed
@@ -20,7 +20,7 @@ bool AHT10Init(){
 bool AHT10SoftReset(void) {
 
     uint8_t resetCommand = AHT10_SOFT_RESET_CMD;
-    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(&hi2c3, AHT10_ADDRESS, &resetCommand, 1, HAL_MAX_DELAY);
+    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(TEMP_AND_HUM_SENSOR_I2C_BUS, AHT10_ADDRESS, &resetCommand, 1, HAL_MAX_DELAY);
     
     if (status != HAL_OK) {
         return false; // Soft reset failed
@@ -37,7 +37,7 @@ bool AHT10StartMeasurement(void) {
     startCommand[0] = AHT10_START_MEASURMENT_CMD; // Start measurement command
     startCommand[1] = AHT10_DATA_MEASURMENT_CMD; // Data measurement command
     startCommand[2] = AHT10_DATA_NOP; // No operation command, can be set to 0x00 or any other value as per the datasheet
-    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(&hi2c3, AHT10_ADDRESS, startCommand, sizeof(startCommand), HAL_MAX_DELAY);
+    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(TEMP_AND_HUM_SENSOR_I2C_BUS, AHT10_ADDRESS, startCommand, sizeof(startCommand), HAL_MAX_DELAY);
     
     if (status != HAL_OK) {
         return false; // Measurement start failed
@@ -57,7 +57,7 @@ bool AHT10ReadTemperatureAndHumidity(int32_t *temperature, uint32_t *humidity) {
         return false; // Failed to start measurement
     }
     uint8_t data[6]; // Buffer to hold the received data
-    HAL_StatusTypeDef status = HAL_I2C_Master_Receive(&hi2c3, AHT10_ADDRESS, data, sizeof(data), HAL_MAX_DELAY);
+    HAL_StatusTypeDef status = HAL_I2C_Master_Receive(TEMP_AND_HUM_SENSOR_I2C_BUS, AHT10_ADDRESS, data, sizeof(data), HAL_MAX_DELAY);
     if (status != HAL_OK) {
         return false; // Read failed
     }

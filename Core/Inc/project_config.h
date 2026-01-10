@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "usart.h"
+#include "i2c.h"
 
 /**
   ******************************************************************************
@@ -37,4 +38,8 @@
 #define PROJECT_CONFIG_VOC_HIGH_THRESHOLD 400 // High VOC threshold based on VOC index values
 #define PROJECT_CONFIG_FILTER_REPLACEMENT_DAYS 30 // Days after which filter replacement is recommended
 #define PROJECT_CONFIG_FILTER_WARNING_VOC_DELTA 100 // VOC delta threshold to trigger filter warning (TODO: Adjust based on testing)
+
+
+#define TEMP_AND_HUM_SENSOR_I2C_BUS &hi2c1 // I2C bus for temperature and humidity sensor
+
 #endif /* __PROJECT_CONFIG_H__ */

@@ -30,6 +30,8 @@
 #include "voc_handler.h"
 #include "encoder_handler.h"
 #include "display_handler.h"
+#include "fan_handler.h"
+#include "state_machine_main.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,6 +103,12 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
+  
+  /* Initialize the system state machine and start operation
+  *  This will initialize all necessary subsystems and enter the main operational loop
+  *  While loop will be handled within the state machine functions and below while should never be reached
+  */
+  StateMachineInit();
 
   /* USER CODE END 2 */
 

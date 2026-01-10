@@ -1,6 +1,7 @@
 #include "state_machine_main.h"
 
 SystemStateMachine stateMachine;
+bool FilterWarningActive = false;
 
 void StateMachineInit(void) {
     stateMachine.previousState = OFF;
@@ -53,25 +54,21 @@ void StateFunctionIdleMeasurement(void) {
 void StateFunctionSleep(void) {
     stateMachine.currentState = SLEEP;
     // Enter sleep mode
-    //EnterSleepMode();
 }
 
 void StateFunctionFilterAndMeasure(void) {
     stateMachine.currentState = FILTER_AND_MEASURE;
     // Start filter and measure process
-    //StartFilterAndMeasure();
 }
 
 void StateFunctionFault(void) {
     stateMachine.currentState = FAULT;
     // Handle fault state
-    //HandleFault();
 }
 
 void StateFunctionFilterError(void){
     stateMachine.currentState = NOTIFY_FILTER;
     // Handle filter error state
-    //HandleFilterError();
 }
 
 void HandleEvent(kSystemEvent event) {

@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "i2c.h"
+#include "project_config.h"
 
 /*
 * Datasheet for this IC is afwul, I pulled some information from different sources
