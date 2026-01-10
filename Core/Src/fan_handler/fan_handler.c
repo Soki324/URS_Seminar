@@ -1,9 +1,9 @@
 #include "fan_handler.h"
 
 volatile uint32_t fan_pulse_count = 0;
-uint32_t currentFanRPM = 0;
-
-FanSpeed selectedFanspeed = FAN_OFF;
+uint32_t current_fan_rpm = 0;
+bool rpm_measurement_active = 0;
+FanSpeed selected_fan_speed = FAN_OFF;
 
 bool FanHandlerInit(void) {
     bool ret = false;
@@ -22,22 +22,22 @@ bool SetFanSpeed(FanSpeed speed) {
     case FAN_OFF:
         // Set PWM duty cycle to 0%
         TIM2->CCMR1=0;
-        selectedFanspeed = FAN_OFF;
+        selected_fan_speed = FAN_OFF;
         break;
     case FAN_LOW:
         // Set PWM duty cycle to 25%
         TIM2->CCMR1=25;
-        selectedFanspeed = FAN_LOW;
+        selected_fan_speed = FAN_LOW;
         break;
     case FAN_MEDIUM:
         // Set PWM duty cycle to 50%
         TIM2->CCMR1=50;
-        selectedFanspeed = FAN_MEDIUM;
+        selected_fan_speed = FAN_MEDIUM;
         break;
     case FAN_HIGH:
         // Set PWM duty cycle to 100%
         TIM2->CCMR1=100;
-        selectedFanspeed = FAN_HIGH;
+        selected_fan_speed = FAN_HIGH;
         break;
     default:
         break;
@@ -46,7 +46,7 @@ bool SetFanSpeed(FanSpeed speed) {
 }
 
 FanSpeed GetFanSpeed(void) {
-    return selectedFanspeed;
+    return selected_fan_speed;
 }
 
 bool RunFanSelfTest(void) {
@@ -62,7 +62,7 @@ void UpdateFanRPM(void) {
     // Start tachometer interrupt
     StartTachInterrupt();
     // Start non blocking timer for 15 seconds
-
+    HAL_TIM_Base_Start_IT(&htim6);
 }
 
 void StartTachInterrupt(void) {

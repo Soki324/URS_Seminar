@@ -23,11 +23,12 @@ bool InitTempAndHumSensor() {
 
 
 bool RunTempAndHumSensorMeasurement(void) {
-
+    bool ret = false;
     if (AHT10ReadTemperatureAndHumidity(&sensor_temperature_c, &sensor_humidity_percent)) {
         printf("Temperature: %ld, Humidity: %lu\n", sensor_temperature_c, sensor_humidity_percent);
+        ret = true;
     } else {
         printf("Error reading temperature and humidity.\n");
     }
-
+    return ret;
 }

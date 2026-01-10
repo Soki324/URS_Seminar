@@ -216,7 +216,7 @@ bool RunSensorsCalibration(void) {
     return ret;
 }
 
-void ConvertTemperatureAndHumidityToTicks() {
+void ConvertTemperatureAndHumidityToTicks(void) {
     // Calculate ticks using the formula from SGP40 datasheet, table 10
     temperature_ticks = (uint16_t)((t + 45) * 65535 / 175);
     humidity_ticks = (uint16_t)((rh * 65535) / 100);

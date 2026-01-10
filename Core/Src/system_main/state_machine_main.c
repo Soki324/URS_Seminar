@@ -53,25 +53,25 @@ void StateFunctionIdleMeasurement(void) {
 void StateFunctionSleep(void) {
     stateMachine.currentState = SLEEP;
     // Enter sleep mode
-    EnterSleepMode();
+    //EnterSleepMode();
 }
 
 void StateFunctionFilterAndMeasure(void) {
     stateMachine.currentState = FILTER_AND_MEASURE;
     // Start filter and measure process
-    StartFilterAndMeasure();
+    //StartFilterAndMeasure();
 }
 
 void StateFunctionFault(void) {
     stateMachine.currentState = FAULT;
     // Handle fault state
-    HandleFault();
+    //HandleFault();
 }
 
 void StateFunctionFilterError(void){
     stateMachine.currentState = NOTIFY_FILTER;
     // Handle filter error state
-    HandleFilterError();
+    //HandleFilterError();
 }
 
 void HandleEvent(kSystemEvent event) {

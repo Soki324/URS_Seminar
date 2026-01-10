@@ -17,7 +17,7 @@ set(MX_Include_Dirs
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F4xx/Include
     ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Include
 
-    #Core
+    ##################### Core ######################
     # Display handler
     ${CMAKE_SOURCE_DIR}/Core/Inc/display_handler
     # VoC handler
@@ -29,7 +29,7 @@ set(MX_Include_Dirs
     # Fan handler
     ${CMAKE_SOURCE_DIR}/Core/Inc/fan_handler
 
-    # Libs
+    ##################### Libs ######################
     # SPG40 libs
     ${CMAKE_SOURCE_DIR}/Libs/Inc/spg40
     # Sensirion gas index algorithm libs
@@ -53,9 +53,10 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/stm32f4xx_hal_msp.c
     ${CMAKE_SOURCE_DIR}/Core/Src/sysmem.c
     ${CMAKE_SOURCE_DIR}/Core/Src/syscalls.c
+    ${CMAKE_SOURCE_DIR}/Core/Src/irq_handler.c
     ${CMAKE_SOURCE_DIR}/startup_stm32f446xx.s
 
-    #Core
+    ##################### Core ######################
     # Display handler
     ${CMAKE_SOURCE_DIR}/Core/Src/display_handler/display_handler.c
     # VoC handler
@@ -66,8 +67,8 @@ set(MX_Application_Src
     ${CMAKE_SOURCE_DIR}/Core/Src/system_main/state_machine_main.c
     # Fan handler
     ${CMAKE_SOURCE_DIR}/Core/Src/fan_handler/fan_handler.c
-
-    #Libs
+    
+    ##################### Libs ######################
     # SPG40 libs
     ${CMAKE_SOURCE_DIR}/Libs/Src/spg40/sensirion_common.c
     ${CMAKE_SOURCE_DIR}/Libs/Src/spg40/sensirion_i2c_hal.c

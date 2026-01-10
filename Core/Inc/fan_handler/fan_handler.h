@@ -16,7 +16,15 @@ typedef enum {
     FAN_HIGH = 3
 } FanSpeed;
 
-extern FanSpeed selectedFanspeed;
+/**
+ * @brief Flag to indicate if RPM measurement is active
+ */
+extern bool rpm_measurement_active;
+
+/** 
+ * @brief Currently selected fan speed
+ */
+extern FanSpeed selected_fan_speed;
 
 /** 
  * @brief Current fan pulse count

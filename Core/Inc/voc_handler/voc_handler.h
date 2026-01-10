@@ -74,7 +74,7 @@ uint8_t RunVocMeasurement(void);
  * @param None
  * @return None
  */
-void ConvertTemperatureAndHumidityToTicks();
+void ConvertTemperatureAndHumidityToTicks(void);
 
 /**
  * Runs self-test for specified SGP40 sensor.

@@ -6,6 +6,9 @@
 #include "usart.h"
 #include "project_config.h"
 #include "display_handler.h"
+#include "stm32f4xx_hal.h"
+#include "tim.h"
+#include "fan_handler.h"
 #include "voc_handler.h"
 
 /*
@@ -45,8 +48,8 @@ typedef enum {
 } kSystemEvent;
 
 typedef struct{
-    kSystemEvent currentState;
-    kSystemEvent previousState;
+    kSystemFSMStates currentState;
+    kSystemFSMStates previousState;
 } SystemStateMachine;
 
 extern SystemStateMachine stateMachine;
@@ -59,7 +62,7 @@ bool FilterWarningActive = false;
  * @param None
  * @return None
  */
-void StateMachineInit();
+void StateMachineInit(void);
 
 /**
  * Handle events and trigger state transitions
@@ -80,5 +83,13 @@ void StateFunctionSleep(void);
 void StateFunctionFilterAndMeasure(void);
 void StateFunctionFault(void);
 void StateFunctionFilterError(void);
+
+/********************************************************************************************
+ * External function declarations
+ *
+ ********************************************************************************************/
+extern uint8_t RunVocMeasurement(void);
+extern bool RunSensorsCalibration(void);
+
 
 #endif /* __STATE_MACHINE_MAIN_H__ */
