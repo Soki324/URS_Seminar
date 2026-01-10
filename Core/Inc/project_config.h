@@ -40,6 +40,6 @@
 #define PROJECT_CONFIG_FILTER_WARNING_VOC_DELTA 100 // VOC delta threshold to trigger filter warning (TODO: Adjust based on testing)
 
 
-#define TEMP_AND_HUM_SENSOR_I2C_BUS &hi2c1 // I2C bus for temperature and humidity sensor
+#define TEMP_AND_HUM_SENSOR_I2C_BUS &hi2c3 // I2C bus for temperature and humidity sensor
 
 #endif /* __PROJECT_CONFIG_H__ */
