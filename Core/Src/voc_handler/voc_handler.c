@@ -204,8 +204,8 @@ bool RunSensorsCalibration(void) {
     bool ret = false;
     printf("Calibrating VOC sensors...\n\n");
     if(hardware_initialized) {
-        GasIndexAlgorithm_reset(&gas_index_algorithm_intake_params);
-        GasIndexAlgorithm_reset(&gas_index_algorithm_exaust_params);
+        GasIndexAlgorithm_init(&gas_index_algorithm_intake_params, GasIndexAlgorithm_ALGORITHM_TYPE_VOC);
+        GasIndexAlgorithm_init(&gas_index_algorithm_exaust_params, GasIndexAlgorithm_ALGORITHM_TYPE_VOC);
         RunVocMeasurement();
         uint8_t voc_measurement_status = RunVocMeasurement();
     if(voc_measurement_status < 5) {

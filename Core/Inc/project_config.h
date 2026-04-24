@@ -38,6 +38,9 @@
 #define PROJECT_CONFIG_VOC_HIGH_THRESHOLD 400 // High VOC threshold based on VOC index values
 #define PROJECT_CONFIG_FILTER_REPLACEMENT_DAYS 30 // Days after which filter replacement is recommended
 #define PROJECT_CONFIG_FILTER_WARNING_VOC_DELTA 100 // VOC delta threshold to trigger filter warning (TODO: Adjust based on testing)
+#define PROJECT_CONFIG_SLEEP_PERIOD_MS 30000 // Sleep duration in milliseconds before re-running VOC measurement (30 seconds), configured in TIM3
+#define PROJECT_CONFIG_SLEEP_WAKEUP_PERIOD_MS 300000 // Duration in milliseconds for which the system stays awake after being woken up from sleep mode (5 minutes)
+#define PROJECT_CONFIG_SLEEP_TIMEOUT_WAKEUP_COUNT (PROJECT_CONFIG_SLEEP_WAKEUP_PERIOD_MS / PROJECT_CONFIG_SLEEP_PERIOD_MS) // Number of sleep cycles before system goes back to sleep after waking up
 
 
 #define TEMP_AND_HUM_SENSOR_I2C_BUS &hi2c3 // I2C bus for temperature and humidity sensor

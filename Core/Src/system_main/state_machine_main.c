@@ -3,6 +3,10 @@
 SystemStateMachine stateMachine;
 bool FilterWarningActive = false;
 
+kSystemFSMStates GetCurrentState(void) {
+    return stateMachine.currentState;
+}
+
 void StateMachineInit(void) {
     stateMachine.previousState = OFF;
     // Call the initial state function
@@ -12,6 +16,7 @@ void StateMachineInit(void) {
 void StateFunctionInit(void) {
     bool ret = false;
     stateMachine.currentState = INIT_SYSTEM;
+    printf("State Machine: Initializing system...\r");
     if(InitVocSystem() /*&& init_display_system()*/) {
         ret = true;
     }
@@ -24,6 +29,7 @@ void StateFunctionInit(void) {
 
 void StateFunctionCalibration(void) {
     stateMachine.currentState = CALIBRATION;
+    printf("State Machine: Calibrating sensors...\r");
     // Start calibration process
     if(RunSensorsCalibration()) {
         HandleEvent(CALIBRATION_COMPLETE_EVENT);
@@ -34,6 +40,7 @@ void StateFunctionCalibration(void) {
 
 void StateFunctionIdleMeasurement(void) {
     stateMachine.currentState = IDLE_MEASUREMENT;
+    printf("State Machine: Idle measurement...\r");
     uint8_t measurement_ret = RunVocMeasurement();
     if(measurement_ret < 5) {
         if(calculated_voc_intake < PROJECT_CONFIG_VOC_SAFE_THRESHOLD && calculated_voc_exaust < PROJECT_CONFIG_VOC_SAFE_THRESHOLD) {
@@ -53,12 +60,33 @@ void StateFunctionIdleMeasurement(void) {
 
 void StateFunctionSleep(void) {
     stateMachine.currentState = SLEEP;
-    // Enter sleep mode
+    printf("State Machine: Sleeping...\n");
+    HAL_TIM_Base_Start_IT(&htim3);
 }
 
 void StateFunctionFilterAndMeasure(void) {
     stateMachine.currentState = FILTER_AND_MEASURE;
-    // Start filter and measure process
+    printf("State Machine: Activating fan and measuring VOC levels...\r");
+    uint8_t measurement_ret = RunVocMeasurement();
+    if(measurement_ret < 5) {
+        if(calculated_voc_intake < PROJECT_CONFIG_VOC_SAFE_THRESHOLD && calculated_voc_exaust < PROJECT_CONFIG_VOC_SAFE_THRESHOLD) {
+            // VOC levels are now safe
+            global_air_quality_safe = true;
+            HandleEvent(VOC_SAFE_EVENT);
+        } else {
+            // VOC levels are still unsafe, check if filter warning should be activated
+            global_air_quality_safe = false;
+            if(!FilterWarningActive && (calculated_voc_intake - calculated_voc_exaust > PROJECT_CONFIG_FILTER_WARNING_VOC_DELTA || calculated_voc_exaust - calculated_voc_intake > PROJECT_CONFIG_FILTER_WARNING_VOC_DELTA)) {
+                FilterWarningActive = true;
+                HandleEvent(FILTER_WARNING_EVENT);
+            } else {
+                HandleEvent(VOC_UNSAFE_EVENT);
+            }
+        }
+    } else {
+        // Measurement failed
+        HandleEvent(SYSTEM_ERROR_EVENT);
+    }
 }
 
 void StateFunctionFault(void) {

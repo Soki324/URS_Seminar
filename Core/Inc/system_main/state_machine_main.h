@@ -70,6 +70,13 @@ void StateMachineInit(void);
  */
 void HandleEvent(kSystemEvent event);
 
+/**
+ * Get the current state of the state machine
+ * @param None
+ * @return The current state of the state machine
+ */
+kSystemFSMStates GetCurrentState(void);
+
 
 /********************************************************************************************
  * State functions
@@ -82,6 +89,7 @@ void StateFunctionSleep(void);
 void StateFunctionFilterAndMeasure(void);
 void StateFunctionFault(void);
 void StateFunctionFilterError(void);
+void StateFunctionSleepWakeup(void);
 
 /********************************************************************************************
  * External function declarations

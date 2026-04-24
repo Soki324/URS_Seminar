@@ -27,3 +27,8 @@ Button:
 
 Speaker:
     Output -> PB14
+
+
+Timer 2 -> Fan PWM control
+Timer 3 -> Non blocking general use timer (30s)
+Timer 6 -> Non blocking general use timer (10s)

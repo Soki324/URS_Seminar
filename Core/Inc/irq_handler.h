@@ -2,6 +2,7 @@
 #define IRQ_HANDLER_H
 #include "tim.h"
 #include "fan_handler.h"
+#include "state_machine_main.h"
 
 /**
   ******************************************************************************
@@ -10,7 +11,7 @@
   ******************************************************************************
 */
 
-//void EXTI1_IRQHandler(void);
-//void TIM6_DAC_IRQHandler(void);
+uint32_t sleep_wakeup_count = 0; // Counter to track the number of wakeups from sleep mode
+uint32_t sleep_wakeup_limit = PROJECT_CONFIG_SLEEP_TIMEOUT_WAKEUP_COUNT; // Limit for wakeups before going back to sleep
 
 #endif // IRQ_HANDLER_H
