@@ -44,5 +44,6 @@
       }
     }
   },
-  "postCreateCommand": "cmake --preset Debug"
+  "postCreateCommand": "cmake --preset Debug",
+  "postStartCommand": "git config --global user.name \"${localEnv:GIT_AUTHOR_NAME}\" && git config --global user.email \"${localEnv:GIT_AUTHOR_EMAIL}\""
 }
